@@ -103,25 +103,25 @@
       sizeCloud();
       window.addEventListener('resize', sizeCloud);
 
-      // облако = кластер из нескольких круглых «долек», как кучевое
-      var LIFE = 0.5; // секунд — быстро пропадает
+      // облако = кластер круглых «долек», как кучевое
+      var LIFE = 0.55; // секунд — быстро пропадает
       var puffs = [];
       var px = null, py = null;
 
       function spawnCloud(x, y) {
-        var lobes = 3 + (Math.random() * 2 | 0); // 3–4 дольки
+        var lobes = 4 + (Math.random() * 3 | 0); // 4–6 долек — пышнее
         for (var i = 0; i < lobes; i++) {
           var a = Math.random() * Math.PI * 2;
-          var d = Math.random() * 12 * dpr;
+          var d = Math.random() * 20 * dpr;
           puffs.push({
             x: x + Math.cos(a) * d,
             y: y + Math.sin(a) * d,
-            r: (9 + Math.random() * 13) * dpr,
-            rise: (6 + Math.random() * 10) * dpr,
+            r: (16 + Math.random() * 22) * dpr,
+            rise: (8 + Math.random() * 14) * dpr,
             born: performance.now()
           });
         }
-        if (puffs.length > 360) puffs.splice(0, puffs.length - 360);
+        if (puffs.length > 420) puffs.splice(0, puffs.length - 420);
       }
 
       window.addEventListener('mousemove', function (e) {
@@ -147,12 +147,14 @@
           if (t >= 1) continue;
           alive.push(p);
           var fade = (1 - t) * (1 - t);
-          var r = p.r * (1 + t * 0.5);            // чуть распухает
+          var r = p.r * (1 + t * 0.6);            // распухает
           var y2 = p.y - p.rise * t;              // всплывает вверх
-          var g = ctx.createRadialGradient(p.x, y2, r * 0.15, p.x, y2, r);
-          g.addColorStop(0, 'rgba(255,255,255,' + (0.32 * fade).toFixed(3) + ')');
-          g.addColorStop(0.7, 'rgba(255,255,255,' + (0.14 * fade).toFixed(3) + ')');
-          g.addColorStop(1, 'rgba(255,255,255,0)');
+          // плотная золотая вата: яркая сердцевина, чёткий край, мягкий ореол
+          var g = ctx.createRadialGradient(p.x, y2, 0, p.x, y2, r);
+          g.addColorStop(0, 'rgba(255,240,214,' + (0.55 * fade).toFixed(3) + ')');
+          g.addColorStop(0.5, 'rgba(236,187,106,' + (0.42 * fade).toFixed(3) + ')');
+          g.addColorStop(0.8, 'rgba(226,169,78,' + (0.18 * fade).toFixed(3) + ')');
+          g.addColorStop(1, 'rgba(226,169,78,0)');
           ctx.fillStyle = g;
           ctx.beginPath();
           ctx.arc(p.x, y2, r, 0, Math.PI * 2);
