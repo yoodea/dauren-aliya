@@ -1,0 +1,199 @@
+/* Dauren & Aliya — wedding invitation
+   стиль: японские STUDIO-приглашения — белый минимализм, тонкий сериф, воздух */
+
+:root {
+  --paper: #fbfaf8;
+  --ink: #2b2a28;
+  --soft: #77726b;
+  --hairline: rgba(43, 42, 40, .16);
+  --serif: 'Cormorant Garamond', serif;
+  --sans: 'Inter', 'Helvetica Neue', sans-serif;
+  --ease: cubic-bezier(.22, 1, .36, 1);
+}
+
+* { box-sizing: border-box; }
+html { height: 100%; }
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.9;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+::selection { background: var(--ink); color: var(--paper); }
+img { display: block; width: 100%; height: 100%; object-fit: cover; }
+a { color: inherit; text-decoration: none; }
+
+.label {
+  font-size: 10px;
+  letter-spacing: .38em;
+  text-transform: uppercase;
+  color: var(--soft);
+  font-weight: 400;
+}
+
+/* ---------- язык ---------- */
+.lang {
+  position: fixed; top: 18px; right: 18px; z-index: 50;
+  display: flex; gap: 12px;
+  mix-blend-mode: difference; color: #fff;
+}
+.lang button {
+  font: inherit; font-size: 10px; letter-spacing: .22em; text-transform: uppercase;
+  background: none; border: none; color: inherit; cursor: pointer; padding: 4px;
+  opacity: .5; transition: opacity .3s;
+}
+.lang button.on { opacity: 1; text-decoration: underline; text-underline-offset: 4px; }
+
+/* ---------- hero ---------- */
+.hero {
+  position: relative;
+  height: 100svh; min-height: 560px;
+  overflow: hidden;
+}
+.hero .ph { position: absolute; inset: 0; }
+.hero .ph img { transform: scale(1.08); }
+.hero .shade {
+  position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(20,19,18,.18) 0%, rgba(20,19,18,.05) 45%, rgba(20,19,18,.55) 100%);
+}
+.hero-inner {
+  position: absolute; left: 0; right: 0; bottom: 0;
+  padding: 0 24px clamp(48px, 9vh, 96px);
+  text-align: center; color: #f6f4f0;
+}
+.hero-inner .label { color: rgba(246,244,240,.75); margin-bottom: 22px; display: block; }
+.hero-names {
+  margin: 0;
+  font-family: var(--serif); font-weight: 300;
+  font-size: clamp(46px, 9vw, 96px);
+  line-height: 1.08; letter-spacing: .02em;
+}
+.hero-names .amp { font-style: italic; padding: 0 .12em; }
+.hero-date {
+  margin-top: 26px;
+  font-family: var(--serif); font-weight: 300;
+  font-size: clamp(17px, 2.4vw, 22px);
+  letter-spacing: .42em; text-indent: .42em;
+}
+.hero .scroll-hint {
+  position: absolute; left: 50%; bottom: 18px;
+  width: 1px; height: 44px; overflow: hidden;
+}
+.hero .scroll-hint::after {
+  content: ""; position: absolute; left: 0; top: -100%;
+  width: 1px; height: 100%;
+  background: rgba(246,244,240,.8);
+  animation: hint 1.8s var(--ease) infinite;
+}
+@keyframes hint { to { top: 100%; } }
+
+/* ---------- секции ---------- */
+section { padding: clamp(84px, 14vh, 150px) 24px; }
+.narrow { max-width: 640px; margin: 0 auto; text-align: center; }
+.sec-label { display: block; margin-bottom: 34px; }
+
+h2 {
+  margin: 0 0 30px;
+  font-family: var(--serif); font-weight: 400;
+  font-size: clamp(26px, 4.4vw, 38px);
+  line-height: 1.3; letter-spacing: .04em;
+}
+
+.greeting p { margin: 0 0 1.6em; color: var(--soft); }
+.greeting .names-line {
+  font-family: var(--serif); font-size: 21px; color: var(--ink);
+  letter-spacing: .06em;
+}
+
+/* ---------- countdown ---------- */
+.count { display: flex; justify-content: center; gap: clamp(18px, 6vw, 54px); }
+.count .cell { min-width: 58px; }
+.count .v {
+  font-family: var(--serif); font-weight: 300;
+  font-size: clamp(40px, 8vw, 68px); line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.count .l { margin-top: 12px; font-size: 9.5px; letter-spacing: .3em; text-transform: uppercase; color: var(--soft); }
+
+/* ---------- фото ---------- */
+.bleed { padding: 0; }
+.bleed .ph {
+  position: relative; overflow: hidden;
+  height: clamp(320px, 72vh, 720px);
+}
+.bleed .par { position: absolute; left: 0; right: 0; top: -10%; bottom: -10%; }
+
+.gallery { max-width: 1080px; margin: 0 auto; padding: 0; }
+.g-row { display: grid; gap: 20px; margin-bottom: 20px; }
+.g-2 { grid-template-columns: 1fr 1fr; }
+.g-solo { max-width: 620px; margin: 0 auto 20px; }
+.g-item { position: relative; overflow: hidden; }
+.g-tall { aspect-ratio: 3 / 4; }
+.g-wide { aspect-ratio: 4 / 3; }
+
+/* ---------- информация ---------- */
+.info-card {
+  border: 1px solid var(--hairline);
+  padding: clamp(40px, 7vw, 64px) clamp(24px, 5vw, 56px);
+}
+.info-row { padding: 22px 0; border-bottom: 1px solid var(--hairline); }
+.info-row:last-of-type { border-bottom: none; }
+.info-row .k { font-size: 10px; letter-spacing: .3em; text-transform: uppercase; color: var(--soft); margin-bottom: 8px; }
+.info-row .v { font-family: var(--serif); font-size: clamp(19px, 3vw, 24px); line-height: 1.4; }
+
+.btn {
+  display: inline-block; margin-top: 34px;
+  border: 1px solid var(--ink); border-radius: 999px;
+  padding: 15px 38px;
+  font-size: 10.5px; letter-spacing: .28em; text-transform: uppercase;
+  transition: background .35s var(--ease), color .35s var(--ease);
+  cursor: pointer; background: none; font-family: var(--sans); font-weight: 400;
+  color: var(--ink);
+}
+.btn:hover { background: var(--ink); color: var(--paper); }
+.btn.solid { background: var(--ink); color: var(--paper); }
+.btn.solid:hover { background: transparent; color: var(--ink); }
+
+/* ---------- rsvp ---------- */
+.rsvp { background: #14131270; position: relative; }
+.rsvp-bg { position: absolute; inset: 0; overflow: hidden; }
+.rsvp-bg img { filter: brightness(.42); }
+.rsvp-inner { position: relative; color: #f6f4f0; max-width: 640px; margin: 0 auto; text-align: center; }
+.rsvp-inner .label { color: rgba(246,244,240,.65); }
+.rsvp-inner h2 { color: #f6f4f0; }
+.rsvp-inner p { color: rgba(246,244,240,.78); margin: 0 0 8px; }
+.rsvp .btn { border-color: #f6f4f0; color: #f6f4f0; margin: 40px 6px 0; }
+.rsvp .btn:hover { background: #f6f4f0; color: var(--ink); }
+
+/* ---------- footer ---------- */
+footer { padding: 70px 24px 46px; text-align: center; }
+.foot-names {
+  font-family: var(--serif); font-weight: 300; font-style: italic;
+  font-size: 30px; letter-spacing: .04em;
+}
+.foot-credit { margin-top: 26px; font-size: 10px; letter-spacing: .26em; text-transform: uppercase; color: var(--soft); }
+.foot-credit a { border-bottom: 1px solid var(--hairline); padding-bottom: 2px; }
+
+/* ---------- reveal (без JS всё видно) ---------- */
+html.js .rv { opacity: 0; transform: translateY(34px); will-change: opacity, transform; }
+html.js .rv-img { clip-path: inset(0 0 100% 0); will-change: clip-path; }
+
+@media (max-width: 560px) {
+  .g-2 { grid-template-columns: 1fr; }
+  .g-row { gap: 14px; margin-bottom: 14px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.js .rv { opacity: 1; transform: none; }
+  html.js .rv-img { clip-path: none; }
+  .hero .scroll-hint::after { animation: none; }
+}

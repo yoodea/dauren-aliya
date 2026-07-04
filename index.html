@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>document.documentElement.classList.add('js')</script>
+<title>Dauren &amp; Aliya — Wedding Invitation</title>
+<meta name="description" content="Приглашение на свадьбу Даурена и Алии. Ждём вас в этот особенный день!">
+<meta property="og:title" content="Dauren & Aliya — Wedding Invitation">
+<meta property="og:description" content="Приглашение на свадьбу Даурена и Алии">
+<meta property="og:image" content="photos/hero.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="lang">
+  <button data-lang="ru" class="on">RU</button>
+  <button data-lang="kk">QAZ</button>
+</div>
+
+<!-- hero -->
+<header class="hero">
+  <div class="ph"><img id="heroImg" src="photos/hero.jpg" alt="Даурен и Алия"></div>
+  <div class="shade"></div>
+  <div class="hero-inner">
+    <span class="label" data-i18n="hero_label">Wedding Invitation</span>
+    <h1 class="hero-names"><span class="hn-w">Dauren</span> <span class="amp">&amp;</span> <span class="hn-w">Aliya</span></h1>
+    <div class="hero-date">18 . 09 . 2026</div>
+  </div>
+  <div class="scroll-hint" aria-hidden="true"></div>
+</header>
+
+<!-- приветствие -->
+<section class="greeting">
+  <div class="narrow">
+    <span class="label sec-label rv" data-i18n="greet_label">Приглашение</span>
+    <h2 class="rv" data-i18n="greet_title">Дорогие родные и близкие!</h2>
+    <p class="rv" data-i18n="greet_p1">В нашей жизни наступает особенный день — день, когда две судьбы соединяются в одну. Мы будем счастливы разделить его с вами.</p>
+    <p class="rv" data-i18n="greet_p2">Приглашаем вас на торжество, посвящённое нашему бракосочетанию.</p>
+    <p class="names-line rv">Dauren &amp; Aliya</p>
+  </div>
+</section>
+
+<!-- обратный отсчёт -->
+<section style="padding-top:0">
+  <div class="narrow">
+    <span class="label sec-label rv" data-i18n="count_label">До торжества осталось</span>
+    <div class="count rv" id="countdown" data-date="2026-09-18T17:00:00+05:00">
+      <div class="cell"><div class="v" data-cd="d">—</div><div class="l" data-i18n="cd_d">дней</div></div>
+      <div class="cell"><div class="v" data-cd="h">—</div><div class="l" data-i18n="cd_h">часов</div></div>
+      <div class="cell"><div class="v" data-cd="m">—</div><div class="l" data-i18n="cd_m">минут</div></div>
+      <div class="cell"><div class="v" data-cd="s">—</div><div class="l" data-i18n="cd_s">секунд</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- фото-разделитель -->
+<section class="bleed">
+  <div class="ph rv-img"><div class="par"><img src="photos/walk.jpg" alt="" loading="lazy"></div></div>
+</section>
+
+<!-- наша история / галерея -->
+<section>
+  <div class="narrow" style="margin-bottom:clamp(44px,7vh,72px)">
+    <span class="label sec-label rv" data-i18n="story_label">Наша история</span>
+    <h2 class="rv" data-i18n="story_title">Два человека — одна дорога</h2>
+    <p class="rv" style="color:var(--soft); margin:0" data-i18n="story_p">Каждая фотография — маленькая глава нашей истории. Спасибо, что вы в ней рядом с нами.</p>
+  </div>
+  <div class="gallery">
+    <div class="g-row g-2">
+      <div class="g-item g-tall rv-img"><img src="photos/story.jpg" alt="" loading="lazy"></div>
+      <div class="g-item g-tall rv-img"><img src="photos/fun.jpg" alt="" loading="lazy"></div>
+    </div>
+    <div class="g-solo">
+      <div class="g-item g-tall rv-img"><img src="photos/doorway.jpg" alt="" loading="lazy"></div>
+    </div>
+    <div class="g-row g-2">
+      <div class="g-item g-tall rv-img"><img src="photos/portrait.jpg" alt="" loading="lazy"></div>
+      <div class="g-item g-tall rv-img"><img src="photos/elevator.jpg" alt="" loading="lazy"></div>
+    </div>
+    <div class="g-row g-2">
+      <div class="g-item g-wide rv-img"><img src="photos/golf.jpg" alt="" loading="lazy"></div>
+      <div class="g-item g-wide rv-img"><img src="photos/her-sofa.jpg" alt="" loading="lazy"></div>
+    </div>
+  </div>
+</section>
+
+<!-- дрон-разделитель -->
+<section class="bleed">
+  <div class="ph rv-img"><div class="par"><img src="photos/drone.jpg" alt="" loading="lazy"></div></div>
+</section>
+
+<!-- информация -->
+<section>
+  <div class="narrow">
+    <span class="label sec-label rv" data-i18n="info_label">Информация</span>
+    <h2 class="rv" data-i18n="info_title">Детали торжества</h2>
+    <div class="info-card rv">
+      <div class="info-row">
+        <div class="k" data-i18n="info_date_k">Дата</div>
+        <div class="v" data-i18n="info_date_v">18 сентября 2026, пятница</div>
+      </div>
+      <div class="info-row">
+        <div class="k" data-i18n="info_time_k">Сбор гостей</div>
+        <div class="v">17:00</div>
+      </div>
+      <div class="info-row">
+        <div class="k" data-i18n="info_place_k">Место</div>
+        <div class="v" data-i18n="info_place_v">Ресторан «—», Алматы</div>
+      </div>
+      <div class="info-row">
+        <div class="k" data-i18n="info_dress_k">Дресс-код</div>
+        <div class="v" data-i18n="info_dress_v">Black &amp; White — элегантный вечерний</div>
+      </div>
+    </div>
+    <a class="btn rv" id="mapBtn" href="https://go.2gis.com/" target="_blank" rel="noopener" data-i18n="info_map">Открыть карту</a>
+  </div>
+</section>
+
+<!-- rsvp -->
+<section class="rsvp">
+  <div class="rsvp-bg"><img src="photos/city.jpg" alt="" loading="lazy"></div>
+  <div class="rsvp-inner">
+    <span class="label sec-label rv" data-i18n="rsvp_label">RSVP</span>
+    <h2 class="rv" data-i18n="rsvp_title">Подтвердите присутствие</h2>
+    <p class="rv" data-i18n="rsvp_p">Будем благодарны за ответ до 1 сентября 2026 — нам важно знать, что вы разделите этот день с нами.</p>
+    <a class="btn rv" href="https://wa.me/77000000000?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5!%20" data-i18n="rsvp_btn">Ответить в WhatsApp</a>
+  </div>
+</section>
+
+<!-- футер -->
+<footer>
+  <div class="foot-names rv">Dauren &amp; Aliya</div>
+  <div class="foot-credit rv">
+    <span data-i18n="foot_photo">Фото</span> — Nurlybek Kosaev · <a href="https://yoodea.github.io/shaqyru/" target="_blank" rel="noopener">shaqyru</a>
+  </div>
+</footer>
+
+<script>
+window.INV_I18N = {
+  kk: {
+    hero_label: 'Той жайлы шақыру',
+    greet_label: 'Шақыру',
+    greet_title: 'Қымбатты туыстар мен жақындар!',
+    greet_p1: 'Өмірімізде ерекше күн келе жатыр — екі тағдыр бір болып қосылатын күн. Оны сіздермен бөлісуге қуаныштымыз.',
+    greet_p2: 'Сіздерді үйлену тойымызға арналған салтанатты кешке шақырамыз.',
+    count_label: 'Тойға дейін қалды',
+    cd_d: 'күн', cd_h: 'сағат', cd_m: 'минут', cd_s: 'секунд',
+    story_label: 'Біздің тарихымыз',
+    story_title: 'Екі адам — бір жол',
+    story_p: 'Әр фотосурет — тарихымыздың кішкентай тарауы. Онда бізбен бірге болғаныңызға рахмет.',
+    info_label: 'Ақпарат',
+    info_title: 'Той детальдары',
+    info_date_k: 'Күні', info_date_v: '2026 жылғы 18 қыркүйек, жұма',
+    info_time_k: 'Қонақтарды қарсы алу',
+    info_place_k: 'Орны', info_place_v: '«—» мейрамханасы, Алматы',
+    info_dress_k: 'Дресс-код', info_dress_v: 'Black & White — салтанатты кешкі',
+    info_map: 'Картаны ашу',
+    rsvp_label: 'RSVP',
+    rsvp_title: 'Келетініңізді растаңыз',
+    rsvp_p: '2026 жылғы 1 қыркүйекке дейін жауап берсеңіз, риза боламыз — бұл күнді бізбен бөлісетініңізді білу біз үшін маңызды.',
+    rsvp_btn: 'WhatsApp арқылы жауап беру',
+    foot_photo: 'Фото'
+  }
+};
+</script>
+<script src="assets/gsap.min.js"></script>
+<script src="assets/ScrollTrigger.min.js"></script>
+<script src="assets/lenis.min.js"></script>
+<script src="main.js"></script>
+</body>
+</html>
