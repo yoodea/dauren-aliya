@@ -95,10 +95,12 @@
       cv.setAttribute('aria-hidden', 'true');
       document.body.appendChild(cv);
       var ctx = cv.getContext('2d');
-      var dpr = Math.min(2, window.devicePixelRatio || 1);
+      // рисуем в половинном разрешении: браузер растягивает канвас с
+      // билинейным сглаживанием — края облака получаются мягкие, без пикселей
+      var dpr = 0.55;
       function sizeCloud() {
-        cv.width = Math.round(innerWidth * dpr);
-        cv.height = Math.round(innerHeight * dpr);
+        cv.width = Math.max(1, Math.round(innerWidth * dpr));
+        cv.height = Math.max(1, Math.round(innerHeight * dpr));
       }
       sizeCloud();
       window.addEventListener('resize', sizeCloud);
@@ -121,7 +123,7 @@
             born: performance.now()
           });
         }
-        if (puffs.length > 420) puffs.splice(0, puffs.length - 420);
+        if (puffs.length > 650) puffs.splice(0, puffs.length - 650);
       }
 
       window.addEventListener('mousemove', function (e) {
@@ -129,7 +131,8 @@
         if (px === null) { px = x; py = y; return; }
         var dx = x - px, dy = y - py;
         var dist = Math.sqrt(dx * dx + dy * dy);
-        var steps = Math.max(1, Math.ceil(dist / (16 * dpr)));
+        // шаг плотнее — след сплошной, без «ступенек»
+        var steps = Math.max(1, Math.ceil(dist / (8 * dpr)));
         for (var i = 1; i <= steps; i++) {
           spawnCloud(px + dx * (i / steps), py + dy * (i / steps));
         }
