@@ -88,70 +88,6 @@
       cur.classList.toggle('is-link', !!e.target.closest('a, button'));
     });
 
-    /* ---------- капля воды за курсором: контент увеличивается как через линзу ---------- */
-    if (!reduced) {
-      var LENS_D = 180;   // диаметр капли
-      var LENS_K = 1.35;  // увеличение
-
-      var lens = document.createElement('div');
-      lens.id = 'lens';
-      lens.setAttribute('aria-hidden', 'true');
-      var lensPage = document.createElement('div');
-      lensPage.className = 'lens-page';
-      lens.appendChild(lensPage);
-      document.body.appendChild(lens);
-
-      // копия страницы внутри капли; пересобирается при смене языка
-      window.__buildLens = function () {
-        lensPage.innerHTML = '';
-        lensPage.style.width = innerWidth + 'px';
-        Array.prototype.forEach.call(document.body.children, function (el) {
-          if (el === lens || el.id === 'cursor' || el.tagName === 'SCRIPT') return;
-          var c = el.cloneNode(true);
-          lensPage.appendChild(c);
-        });
-        // в копии всё раскрыто и загружено — линза может смотреть куда угодно
-        lensPage.querySelectorAll('.rv').forEach(function (el) {
-          el.style.opacity = 1; el.style.transform = 'none';
-        });
-        lensPage.querySelectorAll('.rv-img').forEach(function (el) {
-          el.style.clipPath = 'none';
-        });
-        lensPage.querySelectorAll('img[loading]').forEach(function (im) {
-          im.setAttribute('loading', 'eager');
-        });
-      };
-      window.__buildLens();
-      window.addEventListener('resize', window.__buildLens);
-
-      var lx = -300, ly = -300, lShown = false;
-      var mx2 = -300, my2 = -300;
-      window.addEventListener('mousemove', function (e) {
-        mx2 = e.clientX; my2 = e.clientY;
-        if (!lShown) {
-          lShown = true;
-          lx = mx2; ly = my2;
-          gsap.to(lens, { opacity: 1, duration: 0.4 });
-        }
-      });
-      document.documentElement.addEventListener('mouseleave', function () {
-        lShown = false;
-        gsap.to(lens, { opacity: 0, duration: 0.3 });
-      });
-
-      gsap.ticker.add(function () {
-        // капля лениво догоняет курсор, как тяжёлая вода
-        lx += (mx2 - lx) * 0.14;
-        ly += (my2 - ly) * 0.14;
-        // лёгкое «набухание» от скорости
-        var sp = Math.min(0.05, Math.abs(mx2 - lx) * 0.0006 + Math.abs(my2 - ly) * 0.0006);
-        lens.style.transform = 'translate(' + (lx - LENS_D / 2) + 'px,' + (ly - LENS_D / 2) + 'px) scale(' + (1 + sp) + ')';
-        // копия сдвигается так, чтобы точка под каплей оказалась в её центре, но крупнее
-        var tx = LENS_D / 2 - LENS_K * lx;
-        var ty = LENS_D / 2 - LENS_K * (ly + window.scrollY);
-        lensPage.style.transform = 'translate(' + tx + 'px,' + ty + 'px) scale(' + LENS_K + ')';
-      });
-    }
   }
 
   /* ---------- обратный отсчёт ---------- */
@@ -160,7 +96,6 @@
     var target = new Date(cd.dataset.date).getTime();
     function pad(n) { return n < 10 ? '0' + n : String(n); }
     function setAll(key, val) {
-      // обновляем и страницу, и копию внутри капли-линзы
       document.querySelectorAll('[data-cd="' + key + '"]').forEach(function (el) {
         el.textContent = val;
       });
@@ -199,7 +134,6 @@
       b.classList.toggle('on', b.dataset.lang === l);
     });
     document.documentElement.lang = l === 'kk' ? 'kk' : 'ru';
-    if (window.__buildLens) window.__buildLens();
   }
 
   document.querySelectorAll('.lang button').forEach(function (b) {
