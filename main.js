@@ -88,6 +88,18 @@
       cur.classList.toggle('is-link', !!e.target.closest('a, button'));
     });
 
+    /* ---------- магнитные кнопки ---------- */
+    document.querySelectorAll('.wa-btn, .map-link, .lang button').forEach(function (el) {
+      var mag = 0.32;
+      var xTo = gsap.quickTo(el, 'x', { duration: 0.4, ease: 'power3' });
+      var yTo = gsap.quickTo(el, 'y', { duration: 0.4, ease: 'power3' });
+      el.addEventListener('mousemove', function (e) {
+        var r = el.getBoundingClientRect();
+        xTo((e.clientX - (r.left + r.width / 2)) * mag);
+        yTo((e.clientY - (r.top + r.height / 2)) * mag);
+      });
+      el.addEventListener('mouseleave', function () { xTo(0); yTo(0); });
+    });
   }
 
   /* ---------- обратный отсчёт ---------- */
