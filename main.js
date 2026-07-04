@@ -12,11 +12,14 @@
     gsap.ticker.lagSmoothing(0);
   }
 
-  /* ---------- hero: медленный зум + подъём имён ---------- */
+  /* ---------- hero: медленный зум + каскад типографики ---------- */
   if (!reduced) {
     gsap.to('#heroImg', { scale: 1, duration: 3.4, ease: 'power2.out' });
-    gsap.from('.hero-inner .label, .hero-names, .hero-date', {
-      opacity: 0, y: 26, duration: 1.4, ease: 'power3.out', stagger: 0.18, delay: 0.35
+    gsap.from('[data-ht]', {
+      opacity: 0, y: 34, duration: 1.3, ease: 'power3.out', stagger: 0.14, delay: 0.3
+    });
+    gsap.from('.spark', {
+      opacity: 0, scale: 0, duration: 1, ease: 'back.out(2)', stagger: 0.2, delay: 1.2
     });
     // лёгкий параллакс фото при скролле
     gsap.to('#heroImg', {
@@ -80,7 +83,7 @@
   var nodes = document.querySelectorAll('[data-i18n]');
   var ru = {};
   nodes.forEach(function (n) {
-    if (!(n.dataset.i18n in ru)) ru[n.dataset.i18n] = n.textContent;
+    if (!(n.dataset.i18n in ru)) ru[n.dataset.i18n] = n.innerHTML;
   });
   I18N.ru = ru;
   var lang = localStorage.getItem('da-lang') || 'ru';
@@ -92,7 +95,7 @@
     nodes.forEach(function (n) {
       var v = I18N[l][n.dataset.i18n];
       if (v == null) v = ru[n.dataset.i18n];
-      if (v != null) n.textContent = v;
+      if (v != null) n.innerHTML = v.replace(/\n/g, '<br>');
     });
     document.querySelectorAll('.lang button').forEach(function (b) {
       b.classList.toggle('on', b.dataset.lang === l);
