@@ -232,6 +232,48 @@ h2.serif {
 .rot-cap.rc1 { top: 14px; left: -8px; }
 .rot-cap.rc2 { bottom: 18px; right: -6px; transform: rotate(4deg); }
 
+/* ---------- профили жениха и невесты ---------- */
+.paper { background: var(--paper); color: var(--ink); }
+.profile .pgrid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: clamp(14px, 2vw, 28px);
+  align-items: start;
+}
+.profile .pa { grid-column: 1 / 6; aspect-ratio: 3 / 4; }
+.profile .pb { grid-column: 6 / 9; aspect-ratio: 3 / 4; }
+.profile .pc { grid-column: 9 / 13; aspect-ratio: 3 / 4; margin-top: clamp(36px, 7vh, 96px); }
+.profile.flip .pa { grid-column: 8 / 13; }
+.profile.flip .pb { grid-column: 5 / 8; grid-row: 1; }
+.profile.flip .pc { grid-column: 1 / 5; grid-row: 1; }
+.profile .g-item { position: relative; overflow: hidden; }
+.profile .p-text {
+  grid-column: 5 / 9;
+  text-align: center;
+  margin-top: clamp(28px, 6vh, 64px);
+}
+.profile .p-text .label { display: block; margin-bottom: 20px; opacity: .65; }
+.p-name {
+  font-size: clamp(44px, 8vw, 108px) !important;
+  letter-spacing: .16em !important;
+  text-indent: .16em;
+}
+.p-bio {
+  max-width: 420px;
+  margin: 22px auto 0;
+  font-size: 14px;
+}
+
+@media (max-width: 760px) {
+  .profile .pa { grid-column: 1 / 13; }
+  .profile .pb { grid-column: 1 / 7; margin-top: 0; }
+  .profile .pc { grid-column: 7 / 13; margin-top: clamp(24px, 5vh, 48px); }
+  .profile.flip .pa { grid-column: 1 / 13; }
+  .profile.flip .pb { grid-column: 7 / 13; }
+  .profile.flip .pc { grid-column: 1 / 7; grid-row: auto; }
+  .profile .p-text { grid-column: 1 / 13; }
+}
+
 /* ---------- countdown ---------- */
 .count-sec { text-align: center; }
 .count-sec .lead { margin: 0 0 40px; }
