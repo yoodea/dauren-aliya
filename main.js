@@ -52,6 +52,118 @@
     });
   }
 
+  /* ---------- курсор: точка + белое кольцо ---------- */
+  if (matchMedia('(pointer: fine)').matches) {
+    document.documentElement.classList.add('has-cursor');
+    var cur = document.createElement('div');
+    cur.id = 'cursor';
+    cur.setAttribute('aria-hidden', 'true');
+    cur.innerHTML = '<div class="c-ring"></div><div class="c-dot"></div>';
+    document.body.appendChild(cur);
+
+    var dot = cur.querySelector('.c-dot');
+    var ring = cur.querySelector('.c-ring');
+    var dotX = gsap.quickTo(dot, 'x', { duration: 0.08, ease: 'power2' });
+    var dotY = gsap.quickTo(dot, 'y', { duration: 0.08, ease: 'power2' });
+    var ringX = gsap.quickTo(ring, 'x', { duration: 0.45, ease: 'power3' });
+    var ringY = gsap.quickTo(ring, 'y', { duration: 0.45, ease: 'power3' });
+    var shown = false;
+
+    window.addEventListener('mousemove', function (e) {
+      if (!shown) {
+        shown = true;
+        gsap.set([dot, ring], { x: e.clientX, y: e.clientY });
+        gsap.to(cur, { opacity: 1, duration: 0.3 });
+      }
+      dotX(e.clientX); dotY(e.clientY);
+      ringX(e.clientX); ringY(e.clientY);
+    });
+    document.documentElement.addEventListener('mouseleave', function () {
+      shown = false;
+      gsap.to(cur, { opacity: 0, duration: 0.25 });
+    });
+    window.addEventListener('mousedown', function () { cur.classList.add('is-press'); });
+    window.addEventListener('mouseup', function () { cur.classList.remove('is-press'); });
+    document.addEventListener('mouseover', function (e) {
+      cur.classList.toggle('is-link', !!e.target.closest('a, button'));
+    });
+
+    /* ---------- пышное облачко за курсором ---------- */
+    if (!reduced) {
+      var cv = document.createElement('canvas');
+      cv.id = 'cloud';
+      cv.setAttribute('aria-hidden', 'true');
+      document.body.appendChild(cv);
+      var ctx = cv.getContext('2d');
+      var dpr = Math.min(2, window.devicePixelRatio || 1);
+      function sizeCloud() {
+        cv.width = Math.round(innerWidth * dpr);
+        cv.height = Math.round(innerHeight * dpr);
+      }
+      sizeCloud();
+      window.addEventListener('resize', sizeCloud);
+
+      // облако = кластер из нескольких круглых «долек», как кучевое
+      var LIFE = 0.5; // секунд — быстро пропадает
+      var puffs = [];
+      var px = null, py = null;
+
+      function spawnCloud(x, y) {
+        var lobes = 3 + (Math.random() * 2 | 0); // 3–4 дольки
+        for (var i = 0; i < lobes; i++) {
+          var a = Math.random() * Math.PI * 2;
+          var d = Math.random() * 12 * dpr;
+          puffs.push({
+            x: x + Math.cos(a) * d,
+            y: y + Math.sin(a) * d,
+            r: (9 + Math.random() * 13) * dpr,
+            rise: (6 + Math.random() * 10) * dpr,
+            born: performance.now()
+          });
+        }
+        if (puffs.length > 360) puffs.splice(0, puffs.length - 360);
+      }
+
+      window.addEventListener('mousemove', function (e) {
+        var x = e.clientX * dpr, y = e.clientY * dpr;
+        if (px === null) { px = x; py = y; return; }
+        var dx = x - px, dy = y - py;
+        var dist = Math.sqrt(dx * dx + dy * dy);
+        var steps = Math.max(1, Math.ceil(dist / (16 * dpr)));
+        for (var i = 1; i <= steps; i++) {
+          spawnCloud(px + dx * (i / steps), py + dy * (i / steps));
+        }
+        px = x; py = y;
+      });
+
+      gsap.ticker.add(function () {
+        if (!puffs.length) return;
+        ctx.clearRect(0, 0, cv.width, cv.height);
+        var now = performance.now();
+        var alive = [];
+        for (var i = 0; i < puffs.length; i++) {
+          var p = puffs[i];
+          var t = (now - p.born) / (LIFE * 1000);
+          if (t >= 1) continue;
+          alive.push(p);
+          var fade = (1 - t) * (1 - t);
+          var r = p.r * (1 + t * 0.5);            // чуть распухает
+          var y2 = p.y - p.rise * t;              // всплывает вверх
+          var g = ctx.createRadialGradient(p.x, y2, r * 0.15, p.x, y2, r);
+          g.addColorStop(0, 'rgba(255,255,255,' + (0.32 * fade).toFixed(3) + ')');
+          g.addColorStop(0.7, 'rgba(255,255,255,' + (0.14 * fade).toFixed(3) + ')');
+          g.addColorStop(1, 'rgba(255,255,255,0)');
+          ctx.fillStyle = g;
+          ctx.beginPath();
+          ctx.arc(p.x, y2, r, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        puffs = alive;
+        if (!puffs.length) ctx.clearRect(0, 0, cv.width, cv.height);
+      });
+    }
+  }
+
   /* ---------- обратный отсчёт ---------- */
   var cd = document.getElementById('countdown');
   if (cd) {
