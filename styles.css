@@ -201,6 +201,11 @@ h2.serif {
   letter-spacing: .01em;
 }
 
+/* лица в кропах: фокус выше центра */
+.couple .g-item img, .profile .g-item img, .gal-grid .g-item img { object-position: 50% 18%; }
+.profile .pa img { object-position: 50% 8%; }
+.hero .ph img { object-position: 50% 28%; }
+
 /* ---------- пара: коллаж ---------- */
 .couple .grid {
   display: grid;
@@ -269,7 +274,7 @@ h2.serif {
   .profile .pb { grid-column: 1 / 7; margin-top: 0; }
   .profile .pc { grid-column: 7 / 13; margin-top: clamp(24px, 5vh, 48px); }
   .profile.flip .pa { grid-column: 1 / 13; }
-  .profile.flip .pb { grid-column: 7 / 13; }
+  .profile.flip .pb { grid-column: 7 / 13; grid-row: auto; }
   .profile.flip .pc { grid-column: 1 / 7; grid-row: auto; }
   .profile .p-text { grid-column: 1 / 13; }
 }
@@ -393,13 +398,24 @@ html.js .rv { opacity: 0; transform: translateY(34px); will-change: opacity, tra
 html.js .rv-img { clip-path: inset(0 0 100% 0); will-change: clip-path; }
 
 /* ---------- responsive ---------- */
+@media (max-width: 900px) {
+  /* лица занимают верхнюю треть — весь скрипт уводим в нижнюю половину */
+  .hero-type .t-season { top: 4%; right: 4%; font-size: clamp(34px, 8vw, 64px); }
+  .hero-type .t-local { top: 45%; left: 7%; font-size: clamp(19px, 4.4vw, 30px); }
+  .hero-type .t-wedding { top: 52%; font-size: clamp(70px, 18vw, 150px); }
+  .hero-type .t-invitation { top: 66%; left: 10%; font-size: clamp(42px, 11vw, 88px); }
+  .spark.s1 { top: 62%; left: 70%; }
+  .spark.s2 { top: 49%; left: 58%; }
+  .sticker { width: 148px; bottom: 190px; right: 12px; }
+  .sticker .mini { height: 72px; }
+  .sticker .st-title { font-size: 17px; }
+  .hero-announce { font-size: 12.5px; }
+}
+
 @media (max-width: 760px) {
-  .hero-type .t-wedding { top: 30%; }
-  .hero-type .t-local { top: 22%; left: 8%; }
-  .sticker { bottom: clamp(150px, 24vh, 220px); }
-  .couple .c1 { grid-column: 1 / 8; }
-  .couple .c2 { grid-column: 8 / 13; margin-top: clamp(30px, 6vh, 60px); }
-  .couple .c3 { grid-column: 3 / 11; margin-top: 0; }
+  .couple .c1 { grid-column: 1 / 13; aspect-ratio: 4/5; }
+  .couple .c2 { grid-column: 1 / 7; aspect-ratio: 3/4; margin-top: 0; }
+  .couple .c3 { grid-column: 7 / 13; aspect-ratio: 3/4; margin-top: 0; }
   .ga { grid-column: 1 / 8; }
   .gb { grid-column: 8 / 13; margin-top: clamp(30px, 6vh, 70px); }
   .gc { grid-column: 1 / 6; margin-top: 0; }
